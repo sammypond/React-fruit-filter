@@ -1,26 +1,86 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Filter from './Filter';
+import FruitList from './FruitList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fullList: [
+          'Acai',
+          'Aceola',
+          'Apple',
+          'Apricots',
+          'Avocado',
+          'Banana',
+          'Blackberry',
+          'Blueberries',
+          'Camu Camu berry',
+          'Cherries',
+          'Coconut',
+          'Cranberry',
+          'Cucumber',
+          'Currents',
+          'Dates',
+          'Durian',
+          'Fig',
+          'Goji berries',
+          'Gooseberry',
+          'Grapefruit',
+          'Grapes',
+          'Jackfruit',
+          'Kiwi',
+          'Kumquat',
+          'Lemon',
+          'Lime',
+          'Lucuma',
+          'Lychee',
+          'Mango',
+          'Mangosteen',
+          'Melon',
+          'Mulberry',
+          'Nectarine',
+          'Orange',
+          'Papaya',
+          'Passion Fruit',
+          'Peach',
+          'Pear',
+          'Pineapple',
+          'Plum',
+          'Pomegranate',
+          'Pomelo',
+          'Prickly Pear',
+          'Prunes',
+          'Raspberries',
+          'Strawberries',
+          'Tangerine/Clementine',
+          'Watermelon'
+        ],
+        filterValue: ''
+    }
+    this.handleFilterChange = this.handleFilterChange.bind(this);
+  }
+
+handleFilterChange(e) {
+  e.preventDefault();
+  const filterValue = e.target.value;
+  this.setState({
+    filterValue
+  })
+}
+
+  render() {
+    const listCopy = Array.from(this.state.fullList);
+    const filteredList = listCopy.filter(fruit => {
+      return fruit.toLowerCase().includes(this.state.filterValue.toLowerCase())
+    })
+    return (
+      <>
+        <Filter onChange={this.handleFilterChange} value={this.state.filterValue} />
+        <FruitList fruits={filteredList} />
+      </>
+    );
+  }
 }
 
 export default App;
